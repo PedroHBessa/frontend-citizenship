@@ -1,0 +1,28 @@
+{
+  "base_url": {
+    "development": "http://localhost:8080",
+    "production": "https://server.globalprodoc.com"
+  },
+  "get": {
+    "families": "/family",
+    "documents": "/family/:familyId/member/:memberId/documents",
+    "document": "/family/:familyId/member/:memberId/documents/:documentId",
+    "report": "/family/:familyId/report"
+  },
+  "put": {},
+  "patch": {
+    "documentsType": "/family/:familyId/member/:memberId/documents/type",
+    "documentType": "/family/:familyId/member/:memberId/documents/:documentId/type",
+    "documentData": "/family/:familyId/member/:memberId/documents/:documentId/data"
+  },
+  "delete": {
+    "family": "/family",
+    "member": "/family/:familyId/member/:memberId"
+  },
+  "post": {
+    "token": "/auth/login",
+    "family": "/family",
+    "member": "/family/:familyId/member",
+    "upload": "/family/:familyId/member/:memberId/documents"
+  }
+}

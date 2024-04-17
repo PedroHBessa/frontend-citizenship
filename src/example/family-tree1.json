@@ -1,0 +1,203 @@
+[
+  {
+    "id": "1",
+    "name": "John Doe",
+    "gender": "male",
+    "parents": [],
+    "spouses": [{
+      "id": "2",
+      "type": "married"
+    }],
+    "siblings": [],
+    "status": "COMPLETED_WITH_ERRORS",
+    "birthDate": "1880-01-01",
+    "deathDate": "1930-01-01",
+    "country": "IT",
+    "allowAddMembers": true,
+    "children": [
+      {
+        "id": "3",
+        "type": "blood"
+      },
+      {
+        "id": "4",
+        "type": "blood"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Jane Doe",
+    "gender": "female",
+    "parents": [],
+    "status": "COMPLETED_WITH_NO_ERRORS",
+    "spouses": [{
+      "id": "1",
+      "type": "married"
+    }],
+    "siblings": [],
+    "birthDate": "1890-01-01",
+    "deathDate": "1935-01-01",
+    "country": "PT",
+    "children": [
+      {
+        "id": "3",
+        "type": "blood"
+      },
+      {
+        "id": "4",
+        "type": "blood"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Jim Doe",
+    "gender": "male",
+    "birthDate": "1910-01-01",
+    "deathDate": "1970-01-01",
+    "country": "BR",
+    "allowAddMembers": true,
+    "siblings": [
+      {
+        "id": "4",
+        "type": "blood"
+      }
+    ],
+    "parents": [
+      {
+        "id": "1",
+        "type": "blood"
+      },
+      {
+        "id": "2",
+        "type": "blood"
+      }
+    ],
+    "spouses": [{
+      "id": "6",
+      "type": "married"
+    }],
+    "children": [{
+      "id": "5",
+      "type": "blood"
+    }]
+  },
+  {
+    "id": "4",
+    "name": "Jill Doe",
+    "gender": "female",
+    "birthDate": "1920-01-01",
+    "deathDate": "1990-01-01",
+    "country": "US",
+    "siblings": [
+      {
+        "id": "3",
+        "type": "blood"
+      }
+    ],
+    "parents": [
+      {
+        "id": "1",
+        "type": "blood"
+      },
+      {
+        "id": "2",
+        "type": "blood"
+      }
+    ],
+    "spouses": [],
+    "children": []
+  },
+  {
+    "id": "6",
+    "name": "Mary Doe",
+    "gender": "female",
+    "birthDate": "1920-01-01",
+    "deathDate": "1990-01-01",
+    "country": "ES",
+    "siblings": [],
+    "parents": [
+    ],
+    "spouses": [{
+      "id": "3",
+      "type": "married"
+    }],
+    "children": [{
+      "id": "5",
+      "type": "blood"
+    }]
+  },
+  {
+    "id": "5",
+    "name": "Jim Doe Jr",
+    "gender": "male",
+    "birthDate": "1960-01-01",
+    "deathDate": null,
+    "country": "BR",
+    "siblings": [],
+    "status": "ERRORS",
+    "allowAddMembers": true,
+    "parents": [
+      {
+        "id": "3",
+        "type": "blood"
+      },
+      {
+        "id": "6",
+        "type": "blood"
+      }
+    ],
+    "spouses": [
+      {
+        "id": "7",
+        "type": "married"
+      }
+    ],
+    "children": [{
+      "id": "8",
+      "type": "blood"
+    }]
+  },
+  {
+    "id": "7",
+    "name": "Diana Doe",
+    "gender": "female",
+    "birthDate": "1980-01-01",
+    "deathDate": null,
+    "country": "AR",
+    "siblings": [],
+    "parents": [
+    ],
+    "spouses": [{
+      "id": "5",
+      "type": "married"
+    }],
+    "children": [{
+      "id": "8",
+      "type": "blood"
+    }]
+  },
+  {
+    "id": "8",
+    "name": "Pedro Doe",
+    "gender": "male",
+    "birthDate": "1992-01-01",
+    "deathDate": null,
+    "country": "BR",
+    "siblings": [],
+    "parents": [
+      {
+        "id": "5",
+        "type": "blood"
+      },
+      {
+        "id": "7",
+        "type": "blood"
+      }
+    ],
+    "spouses": [],
+    "children": []
+  }
+]
+
