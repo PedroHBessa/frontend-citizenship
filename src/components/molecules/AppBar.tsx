@@ -16,7 +16,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100%;
-  background-color: #52333b;
+  background-color: #3D5467;
   display: flex;
   flex-direction: column;
   padding: 0 0.5rem;

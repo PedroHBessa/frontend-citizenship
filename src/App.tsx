@@ -25,7 +25,7 @@ function App() {
 
   return (
     <HelmetProvider>
-      <Helmet defaultTitle='Prodoc App Interface' titleTemplate='%s | Prodoc' />
+      <Helmet defaultTitle='Consul IT App Interface' titleTemplate='%s | Consul IT' />
       <StylesProvider jss={jss}>
         <StyledEngineProvider injectFirst>
           <MuiThemeProvider theme={createTheme(theme)}>

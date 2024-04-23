@@ -2,13 +2,13 @@ import React, { ReactNode } from 'react';
 import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components';
-import RedBackground from '../../assets/red-bg.png';
+import BlueBackground from '../../assets/blue-bg.png';
 import TreeBackground from '../../assets/tree-bg.png';
 
 const WrapperRight = styled(Grid)`
-  background: #930028 url(${RedBackground}) no-repeat left center;
-  filter: saturate(100%);
+  background: #0A3C66 url(${BlueBackground}) no-repeat left center;
   background-size: cover;
+  background-position: center;
 `;
 
 const WrapperLeft = styled(Grid)`

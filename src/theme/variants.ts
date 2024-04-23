@@ -9,11 +9,11 @@ export const customColor = {
   200: '#fcbfb2',
   300: '#fdb4a2',
   400: '#f5a28b',
-  500: '#D96670',
-  600: '#bb515b',
-  700: '#52333B',
-  800: '#362227',
-  900: '#332D2D',
+  500: '#53738D',
+  600: '#53738D',
+  700: '#53738D',
+  800: '#171F27',
+  900: '#171F27',
 };
 
 export const grayScale = {
@@ -26,7 +26,7 @@ export const grayScale = {
 };
 
 export const tertiaryColor = {
-  500: '#FF7500',
+  500: '#53738D',
 };
 
 export const themeBackgroundColor = '#ECEBEB';
