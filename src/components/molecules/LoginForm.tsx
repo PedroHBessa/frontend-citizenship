@@ -1,10 +1,9 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { CustomTextField } from '../atoms/CustomTextField';
-import React from 'react';
-import styled from 'styled-components';
 import { Checkbox, FormControlLabel, Grid } from '@mui/material';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import styled from 'styled-components';
+import { StoreApi, UseBoundStore, create } from 'zustand';
 import { CustomButton } from '../atoms/CustomButton';
-import { create, StoreApi, UseBoundStore } from 'zustand';
+import { CustomTextField } from '../atoms/CustomTextField';
 
 export type Inputs = {
   username: string;
@@ -34,12 +33,7 @@ export const useFormStore: UseBoundStore<StoreApi<FormStore>> = create(
 );
 
 export function LoginForm({ onSubmit }: LoginFormProps) {
-  const {
-    register,
-    handleSubmit,
-    // watch,
-    // formState: { errors },
-  } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<Inputs>();
 
   const onSubmitHandler: SubmitHandler<Inputs> = async (data) => {
     if (onSubmit) {

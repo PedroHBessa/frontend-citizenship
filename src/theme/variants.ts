@@ -1,5 +1,5 @@
-import merge from 'deepmerge';
 import { green, grey, indigo, red } from '@mui/material/colors';
+import merge from 'deepmerge';
 import { THEMES } from '../constants';
 import { FamilyMemberStatus, FamilyState } from '../types/State';
 
@@ -9,11 +9,11 @@ export const customColor = {
   200: '#fcbfb2',
   300: '#fdb4a2',
   400: '#f5a28b',
-  500: '#53738D',
-  600: '#53738D',
-  700: '#53738D',
-  800: '#171F27',
-  900: '#171F27',
+  500: '#D96670',
+  600: '#bb515b',
+  700: '#52333B',
+  800: '#362227',
+  900: '#332D2D',
 };
 
 export const grayScale = {
@@ -26,7 +26,7 @@ export const grayScale = {
 };
 
 export const tertiaryColor = {
-  500: '#53738D',
+  500: '#FF7500',
 };
 
 export const themeBackgroundColor = '#ECEBEB';
@@ -41,6 +41,7 @@ interface StatusColors {
 
 export const familyMemberStatusColor: StatusColors = {
   [FamilyMemberStatus.ERRORS]: '#E94343',
+  [FamilyMemberStatus.NOT_FROM_LINEAGE]: grayScale[75],
   [FamilyMemberStatus.COMPLETED_WITH_NO_ERRORS]: '#12CDD4',
   [FamilyMemberStatus.COMPLETED_WITH_ERRORS]: '#7d12d4',
   [FamilyMemberStatus.INCOMPLETE]: '#FFB800',

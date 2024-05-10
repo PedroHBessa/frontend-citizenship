@@ -1,6 +1,4 @@
-import { useFamily } from 'components/hooks/useFamily';
 import { CustomJsonForm } from 'components/molecules/CustomJsonForm';
-import { useForm } from 'react-hook-form';
 import birthCertificateSchema from 'schemas/birthCertificate';
 import {
   IBirthCertificateData,
@@ -11,7 +9,7 @@ import {
 
 import Form, { IChangeEvent } from '@rjsf/core';
 import { AxiosResponse } from 'axios';
-import React, { useEffect } from 'react';
+import React from 'react';
 import deathCertificateSchema from 'schemas/deathCertificate';
 import marriageCertificateSchema from 'schemas/marriagehCertificate';
 import styled from 'styled-components';
@@ -38,19 +36,6 @@ interface IDocumentDataFormProps {
 
 const DocumentDataForm = React.forwardRef<Form, IDocumentDataFormProps>(
   ({ documentData, onSubmit }: IDocumentDataFormProps, ref) => {
-    const { members, family } = useFamily();
-
-    const { handleSubmit, control, getValues } = useForm({
-      defaultValues: documentData,
-    });
-
-    useEffect(() => {
-      if (documentData.documentType === MemberDocumentType.BIRTH_CERTIFICATE)
-        console.log({
-          defaultValues: documentData,
-        });
-    }, [members, family, control, documentData, getValues, handleSubmit]);
-
     return (
       <CustomForm
         columns={{ xs: 6, lg: 4, xl: 3 }}
@@ -73,17 +58,6 @@ const DocumentDataForm = React.forwardRef<Form, IDocumentDataFormProps>(
       >
         {' '}
         {''}
-        {/* <DialogActions>
-        <CustomButton
-          endIcon={<KeyboardDoubleArrowRightIcon />}
-          loading={false}
-          size='large'
-          type='submit'
-          variant='contained'
-        >
-          {last ? '' : 'Next'}
-        </CustomButton>
-      </DialogActions> */}
       </CustomForm>
     );
   }

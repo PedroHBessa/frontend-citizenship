@@ -1,12 +1,17 @@
 import React from 'react';
 import { Alert, Box, Typography } from '@mui/material';
 import styled from 'styled-components';
+import Logo from '../../assets/prodoc-logo.png';
 import { Inputs, LoginForm } from '../molecules/LoginForm';
 import useAuth from '../hooks/useAuth';
 import { create, StoreApi, UseBoundStore } from 'zustand';
 import { BackendError } from '../../types/auth';
 import { useNavigate } from 'react-router-dom';
 
+const LogoImage = styled('img')`
+  mix-blend-mode: multiply;
+  max-width: 203px;
+`;
 
 const Header = styled(Box)`
   display: flex;
@@ -52,6 +57,7 @@ export function Login() {
     <React.Fragment>
       <Box sx={{ width: '457px' }}>
         <Header>
+          <LogoImage src={Logo} />
           <Typography component='h2' mt={2} variant='body1'>
             Welcome back!
           </Typography>

@@ -2,15 +2,21 @@ import { RJSFSchema } from '@rjsf/utils';
 
 const familiesSchema: RJSFSchema = {
   type: 'object',
+  'ui:field': 'cpf',
   properties: {
     personalInformation: {
       title: 'Personal Information',
       type: 'object',
       required: ['firstName', 'lastName', 'birthDate'],
       properties: {
-        firstName: { type: 'string', title: 'First Name' },
-        lastName: { type: 'string', title: 'Last Name' },
-        birthDate: { type: 'string', format: 'date', title: 'Birth Date' },
+        firstName: { type: 'string', title: 'First Name', pattern: '\\S' },
+        lastName: { type: 'string', title: 'Last Name', pattern: '\\S' },
+        birthDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Birth Date',
+          pattern: '\\S',
+        },
         city: { type: 'string', title: 'City' },
         birthPlace: { type: 'string', title: 'Birth Place' },
         state: { type: 'string', title: 'State' },
@@ -49,7 +55,11 @@ const familiesSchema: RJSFSchema = {
       type: 'object',
       required: ['cpf'],
       properties: {
-        cpf: { type: 'string', title: 'CPF (Brazilian)' },
+        cpf: {
+          type: 'string',
+          title: 'CPF (Brazilian)',
+          pattern: '\\S',
+        },
         passportNumber: { type: 'string', title: 'Passport Number' },
         passportEmissionDate: {
           type: 'string',

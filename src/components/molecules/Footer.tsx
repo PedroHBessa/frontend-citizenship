@@ -19,7 +19,7 @@ export function Footer(props: HTMLProps<HTMLDivElement>) {
   return (
     <Component {...props}>
       <Typography variant='body1'>
-        CONSUL IT @ Brazil - Made With{' '}
+        PRODOC @ Brazil - Made With{' '}
         <FavoriteBorderIcon style={{ height: '16px' }} />
       </Typography>
     </Component>

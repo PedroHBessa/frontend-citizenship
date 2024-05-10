@@ -1,133 +1,188 @@
-import { useCallback, useEffect, useState } from 'react';
+import { IChangeEvent } from '@rjsf/core';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useCallback, useEffect, useRef } from 'react';
 import { Api } from '../../api/Api';
 import Configuration from '../../config/Configuration';
-import { MemberDocument, MemberDocumentType } from '../../types/document';
+import { MemberDocument } from '../../types/document';
 import { useFamily } from './useFamily';
 import { useTab } from './useTab';
 
-type DocumentsResponse = {
-  data: {
-    documents: MemberDocument[];
-  };
+export type DocumentsResponse = {
+  documents: MemberDocument[];
 };
 
-type DocumentResponse = {
-  data: {
-    document: MemberDocument[];
-  };
+export type DocumentsRequest = {
+  documentId: string;
+  documentType: string;
 };
+
+export type DocumentRequest = {
+  data: IChangeEvent;
+  document: MemberDocument;
+};
+
+const INTERVAL_TIME = 1000;
+
+const api = new Api();
+const config = new Configuration();
 
 export function useDocuments() {
   const { family, update: updateFamily } = useFamily();
-  const [documents, setDocuments] = useState<MemberDocument[]>([]);
-  const [queue, setQueue] = useState(new Set<string>());
-  const [loading, setLoading] = useState<boolean>(false);
-  const [processing, setProcessing] = useState<boolean>(false);
   const { currentMemberId: memberId } = useTab();
+  const timeout = useRef<number | null>(null);
 
-  const fetchData = useCallback(async () => {
-    if (!memberId) {
-      return;
-    }
+  const queryKey = ['documents', memberId];
+  const queryClient = useQueryClient();
 
-    const api = new Api();
-    const config = new Configuration();
+  /**
+   * Function to invalidate the documents query.
+   */
+  const invalidate = useCallback(
+    async (memberId: string) => {
+      queryClient.invalidateQueries({ queryKey: ['documents', memberId] });
+    },
+    [queryClient]
+  );
 
-    setLoading(true);
-    const response = await api.get(
-      config.getRouteWithVars(config.endpoint.get.documents, {
-        familyId: family._id,
-        memberId: memberId,
-      })
-    );
-
-    setDocuments((response as unknown as DocumentsResponse).data.documents);
-    setLoading(false);
-  }, [memberId, family._id]);
-
-  const processingQueue = useCallback(
-    async (documentId: string) => {
+  const {
+    isLoading: loading,
+    data: documents,
+    refetch: fetchData,
+  } = useQuery<MemberDocument[]>({
+    queryKey,
+    // enabled: !!memberId,
+    queryFn: async () => {
       if (!memberId) {
-        return;
+        return [];
       }
-      const api = new Api();
-      const config = new Configuration();
-
-      setProcessing(true);
-
       const response = await api.get(
-        config.getRouteWithVars(config.endpoint.get.document, {
+        config.getRouteWithVars(config.endpoint.get.documents, {
           familyId: family._id,
           memberId: memberId,
-          documentId: documentId,
         })
       );
 
-      const document = (response as unknown as DocumentResponse).data
-        .document as unknown as MemberDocument;
-
-      if (document.processing === true) {
-        // add a sleep here
-        setTimeout(() => {
-          processingQueue(documentId);
-        }, 5 * 1000);
-      } else {
-        setProcessing(false);
-        setQueue((prevQueue) => {
-          prevQueue.delete(documentId);
-
-          return new Set(prevQueue);
-        });
-        fetchData();
-        updateFamily();
-      }
+      return (response.data as DocumentsResponse).documents;
     },
-    [memberId, family._id, fetchData, updateFamily]
-  );
+  });
 
-  const setDocumentType = useCallback(
-    async (documentId: string, documentType: MemberDocumentType) => {
-      const document = documents.find(
-        (document) => document._id === documentId
+  /**
+   * Custom hook for setting document types.
+   * @returns {Object} - The mutate function for setting document types.
+   */
+  const { mutate: setDocumentsTypes } = useMutation({
+    onSettled: async () => {
+      return await queryClient.invalidateQueries({ queryKey });
+    },
+    onSuccess: async () => {
+      updateFamily();
+    },
+    mutationFn: async (documents: DocumentsRequest[]) => {
+      if (!memberId) return;
+
+      const targetUrl = config.getRouteWithVars(
+        config.endpoint.patch.documentsType,
+        {
+          familyId: family._id,
+        }
       );
 
-      if (!document) {
+      await api.patch(targetUrl, { documents });
+    },
+  });
+
+  /**
+   * Custom hook for updating document data.
+   * @returns A function to update document data.
+   */
+  const { mutateAsync: updateDocumentData } = useMutation({
+    onSettled: async () => {
+      return await queryClient.invalidateQueries({ queryKey });
+    },
+    onSuccess: async () => {
+      updateFamily();
+    },
+    mutationFn: async ({ data, document }: DocumentRequest) => {
+      if (!memberId) {
         return;
       }
 
-      document.documentType = documentType;
-      setDocuments([...documents]);
+      const targetUrl = config.getRouteWithVars(
+        config.endpoint.patch.documentData,
+        {
+          familyId: family._id,
+          memberId,
+          documentId: document._id,
+        }
+      );
+
+      const response = await api.patch(targetUrl, {
+        data: data.formData,
+      });
+
+      return response;
     },
-    [documents]
-  );
+  });
 
+  /**
+   * Custom hook for updating document data.
+   * @returns A function to update document data.
+   */
+  const { mutateAsync: deleteDocument } = useMutation({
+    onSettled: async () => {
+      return await queryClient.invalidateQueries({ queryKey });
+    },
+    onSuccess: async () => {
+      updateFamily();
+    },
+    mutationFn: async (id: string) => {
+      if (!memberId) {
+        return;
+      }
+
+      const targetUrl = config.getRouteWithVars(
+        config.endpoint.delete.document,
+        {
+          familyId: family._id,
+          memberId,
+          documentId: id,
+        }
+      );
+
+      const response = await api.delete(targetUrl);
+
+      return response;
+    },
+  });
+
+  const processing =
+    documents?.some((document) => document.processing) ?? false;
+
+  /**
+   * Check if any documents are processing and invalidate the query if they are.
+   */
   useEffect(() => {
-    fetchData();
-  }, [fetchData, memberId]);
+    timeout.current = window.setInterval(() => {
+      if (documents?.some((document) => document.processing)) {
+        memberId && invalidate(memberId);
+      }
+    }, INTERVAL_TIME);
 
-  useEffect(() => {
-    if (queue.size === 0) {
-      return;
-    }
+    return () => {
+      if (timeout.current) {
+        clearInterval(timeout.current);
+      }
+    };
+  }, [documents, fetchData, invalidate, memberId]);
 
-    queue.forEach((documentId) => {
-      processingQueue(documentId);
-    });
-  }, [queue, processingQueue]);
-
-  useEffect(() => {
-    if (!documents.length) {
-      return;
-    }
-
-    setQueue(
-      new Set(
-        documents
-          .filter((document) => document.processing === true)
-          .map((document) => document._id)
-      )
-    );
-  }, [documents]);
-
-  return { documents, loading, fetchData, setDocumentType, processing };
+  return {
+    documents,
+    loading,
+    fetchData,
+    processing,
+    setDocumentsTypes,
+    invalidate,
+    updateDocumentData,
+    deleteDocument,
+  };
 }

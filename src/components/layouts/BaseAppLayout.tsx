@@ -53,8 +53,12 @@ export function BaseAppLayout({ children }: { children?: ReactNode }) {
             marginLeft: (isOpen ? APP_BAR_OPENED : APP_BAR_CLOSED) + 'px',
           }}
         >
-          <TopBar />
-          <Box pt={2} px={4}>
+          <TopBar
+            style={{
+              width: `calc(100% - ${isOpen ? APP_BAR_OPENED : APP_BAR_CLOSED}px)`,
+            }}
+          />
+          <Box pt={18} px={4}>
             <Breadcrumb />
             {children}
           </Box>

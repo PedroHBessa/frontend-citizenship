@@ -1,7 +1,9 @@
+import ClearIcon from '@mui/icons-material/Clear';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import {
   CircularProgress,
   FormControl,
+  IconButton,
   MenuItem,
   Paper,
   Select,
@@ -9,6 +11,8 @@ import {
 } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
+import { customColor, familyMemberStatusColor } from 'theme/variants';
+import { FamilyMemberStatus } from 'types/State';
 import Configuration from '../../config/Configuration';
 import {
   IIncomingDocumentData,
@@ -20,6 +24,7 @@ interface SetDocumentTypePreviewProps extends IIncomingDocumentData {
     documentId: string,
     documentType: MemberDocumentType
   ) => Promise<void>;
+  onDelete: (documentId: string) => void;
   processing?: boolean;
 }
 
@@ -30,6 +35,7 @@ const ContentWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 
 const ImageWrapper = styled.div`
@@ -65,6 +71,26 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
+const DeleteDocument = styled.div`
+  position: absolute;
+  top: 20px;
+  transform: translateY(-50%);
+  right: 5px;
+  z-index: 99999;
+`;
+
+const DeleteDocumentButton = styled(IconButton)`
+  && {
+    background: ${familyMemberStatusColor[FamilyMemberStatus.ERRORS]};
+    color: white;
+    pointer-events: all;
+    &:hover {
+      background: ${customColor[800]};
+      color: white;
+    }
+  }
+`;
+
 const documentTypes = [
   { name: 'Select the document', type: MemberDocumentType.UNKNOWN },
   { name: 'Birth Certificate', type: MemberDocumentType.BIRTH_CERTIFICATE },
@@ -78,6 +104,7 @@ const documentTypes = [
 
 const SetDocumentTypePreview: React.FC<SetDocumentTypePreviewProps> = ({
   setDocumentType,
+  onDelete,
   processing,
   ...props
 }) => {
@@ -104,14 +131,27 @@ const SetDocumentTypePreview: React.FC<SetDocumentTypePreviewProps> = ({
           {processing ? (
             <CircularProgress />
           ) : (
-            <img
-              alt='preview'
-              crossOrigin='anonymous'
-              src={config.baseUrl + props.documentPath}
-            />
+            props.documentPath && (
+              <img
+                alt='preview'
+                crossOrigin='anonymous'
+                src={config.baseUrl + props.documentPath}
+              />
+            )
           )}
         </ImageWrapper>
         <SelectButtonWrapper>
+          <DeleteDocument>
+            <DeleteDocumentButton
+              onClick={() => {
+                onDelete(props._id);
+              }}
+              size='small'
+            >
+              <ClearIcon />
+            </DeleteDocumentButton>
+          </DeleteDocument>
+
           <FormControl fullWidth size='small'>
             <Select
               fullWidth

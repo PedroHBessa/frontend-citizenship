@@ -43,11 +43,15 @@ export function Family() {
   const { pinned, togglePinned } = usePinned();
   const isPinned = pinned.some((pin) => family._id === pin.id);
   const setCurrentMemberId = useTabStore((state) => state.setCurrentMemberId);
+  const setCurrentMarriageId = useTabStore(
+    (state) => state.setCurrentMarriageId
+  );
   const setCurrentId = useTabStore((state) => state.setCurrentId);
 
   const handleNewMember = () => {
     setIsOpened?.(true);
     setCurrentMemberId(null);
+    setCurrentMarriageId([]);
     setCurrentId('1');
   };
 

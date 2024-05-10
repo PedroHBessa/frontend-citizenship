@@ -1,28 +1,28 @@
-import styled from 'styled-components';
-import MuiMenuIcon from '@mui/icons-material/Menu';
-import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
 import ArticleIcon from '@mui/icons-material/Article';
-import SettingsIcon from '@mui/icons-material/Settings';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
+import MuiMenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Grid, GridProps, IconButton } from '@mui/material';
-import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { IconButtonNavigation } from '../atoms/IconButtonNavigation';
 import {
   APP_BAR_CLOSED,
   APP_BAR_OPENED,
   useBaseLayoutStore,
 } from '../stores/useBaseLayoutStore';
-import { IconButtonNavigation } from '../atoms/IconButtonNavigation';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100%;
-  background-color: #3D5467;
+  background-color: #52333b;
   display: flex;
   flex-direction: column;
   padding: 0 0.5rem;
   box-sizing: border-box;
   transition: ease all 0.2s;
   position: fixed;
+  z-index: 9999;
 `;
 
 const MenuIcon = styled(MuiMenuIcon)`

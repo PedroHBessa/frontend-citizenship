@@ -207,7 +207,7 @@ export class Api {
       ...this.setAuthorizationHeader(config),
       params: {
         ...params,
-        timestamp: this.getCacheTimestamp(),
+        // timestamp: this.getCacheTimestamp(),
       },
     };
 

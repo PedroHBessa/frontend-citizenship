@@ -1,5 +1,5 @@
 # Use an official Node runtime as the base image
-FROM node:14-alpine
+FROM node:20
 
 # Set the working directory in the container
 WORKDIR /app
@@ -8,16 +8,11 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Build the React app
-RUN npm run build
 
-# Expose port 3000 to the outside world
+# Expose port 80 to the outside world
 EXPOSE 3000
-
-# Command to run the React app when the container starts
-CMD ["npm", "start"]

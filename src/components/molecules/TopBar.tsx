@@ -1,5 +1,6 @@
 import PushPinIcon from '@mui/icons-material/PushPin';
 import { Avatar, Box } from '@mui/material';
+import { HTMLProps } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Auth } from '../../config/Auth';
@@ -8,7 +9,6 @@ import { CustomButton } from '../atoms/CustomButton';
 import { usePinned } from '../hooks/usePinned';
 
 const Container = styled.div`
-  width: 100%;
   background-color: ${customColor[900]};
   height: 60px;
   display: flex;
@@ -16,16 +16,18 @@ const Container = styled.div`
   justify-content: end;
   padding: 0 0.5rem;
   box-sizing: border-box;
+  position: fixed;
+  z-index: 999;
 `;
 
-export function TopBar() {
+export function TopBar(props: HTMLProps<HTMLDivElement>) {
   const { username } = Auth.getCredentials();
   const { pinned } = usePinned();
   const navigate = useNavigate();
   const pins = Array.from(pinned);
 
   return (
-    <Container>
+    <Container {...props}>
       {pins.length > 0 && (
         <Box mr={5}>
           {pins.map((pin) => (

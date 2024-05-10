@@ -1,14 +1,12 @@
-import { CustomJsonForm } from './CustomJsonForm';
 import { DialogActions } from '@mui/material';
-import { CustomRightDialog } from '../atoms/CustomRightDialog';
-import React from 'react';
 import { RJSFSchema } from '@rjsf/utils';
+import React from 'react';
 import styled from 'styled-components';
 import { grayScale, themeBackgroundColor } from '../../theme/variants';
-import { CustomButton } from '../atoms/CustomButton';
 import { Data } from '../../types/data';
-
-const log = (type: string) => console.log.bind(console, type);
+import { CustomButton } from '../atoms/CustomButton';
+import { CustomRightDialog } from '../atoms/CustomRightDialog';
+import { CustomJsonForm, ErrorForm } from './CustomJsonForm';
 
 interface FormModalProps {
   schema: RJSFSchema;
@@ -69,12 +67,19 @@ export function FormModal({
     </CustomButton>
   );
 
+  const handleValidation = (formData: Data, errors: ErrorForm) => {
+    console.log(formData);
+
+    return errors;
+  };
+
   return (
     <Dialog fullScreen onClose={onClose} open={open} title='Add new Family'>
       <Form
         columns={{ xs: 6, lg: 4, xl: 3 }}
-        onChange={log('changed')}
-        onError={log('errors')}
+        customValidation={(formData: object, errors: ErrorForm) =>
+          handleValidation(formData as Data, errors)
+        }
         onSubmit={(data) => {
           onSubmit?.(data.formData as Data);
         }}

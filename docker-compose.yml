@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  backend:
+    build: .  # Path to your backend Dockerfile
+    ports:
+      - "8080:8080"  # Map port 8080 of the host to port 8080 of the container
+    depends_on:
+      - mongodb  # Depend on the MongoDB service
+
+  mongodb:
+    image: mongo  # Use the official MongoDB image from Docker Hub
+    ports:
+      - "27017:27017"  # Map port 27017 of the host to port 27017 of the container

@@ -1,7 +1,7 @@
 {
   "base_url": {
-    "development": "https://www.server.consul-it.com",
-    "production": "https://www.server.consul-it.com"
+    "development": "http://localhost:8080",
+    "production": "https://server.globalprodoc.com"
   },
   "get": {
     "families": "/family",
@@ -17,7 +17,8 @@
   },
   "delete": {
     "family": "/family",
-    "member": "/family/:familyId/member/:memberId"
+    "member": "/family/:familyId/member/:memberId",
+    "document": "/family/:familyId/member/:memberId/documents/:documentId"
   },
   "post": {
     "token": "/auth/login",

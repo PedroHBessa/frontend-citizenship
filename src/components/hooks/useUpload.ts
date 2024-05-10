@@ -1,33 +1,57 @@
-import { AxiosProgressEvent } from 'axios';
-import { useState } from 'react';
-import { Api } from '../../api/Api';
+import { ProgressFile } from 'components/stores/useUploadStore';
+import Configuration from 'config/Configuration';
+import { useFamily } from './useFamily';
 
-const api = new Api();
+const config = new Configuration();
+
+export enum UPLOAD_STATES {
+  IDLE = 'idle',
+  UPLOADING = 'uploading',
+  COMPLETED = 'completed',
+}
 
 export const useUpload = () => {
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const { family, uploadForm } = useFamily();
 
-  const uploadForm = async (url: string, formData: FormData) => {
-    await api.post(url, formData, {
-      headers: {
-        'Content-type': 'multipart/form-data',
-      },
-      onUploadProgress: (progressEvent: AxiosProgressEvent) => {
-        const progress =
-          (progressEvent.loaded / (progressEvent.total ?? 100)) * 100;
+  const uploadFiles = async ({
+    files,
+    memberId,
+    onProgress,
+  }: {
+    files: ProgressFile[];
+    memberId: string;
+    onProgress: ({
+      file,
+      progress,
+    }: {
+      file: ProgressFile;
+      progress: number;
+    }) => void;
+  }) => {
+    return Promise.all(
+      files.map(async (file: ProgressFile) => {
+        const formData = new FormData();
 
-        setProgress(progress);
-      },
-      // onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-      //   const progress =
-      //     50 + (progressEvent.loaded / (progressEvent?.total ?? 100)) * 50;
+        formData.append('files[]', file);
 
-      //   setProgress(progress);
-      // },
-    });
-    setIsSuccess(true);
+        const targetUrl = config.getRouteWithVars(config.endpoint.post.upload, {
+          familyId: family._id,
+          memberId,
+        });
+
+        return uploadForm({
+          url: targetUrl,
+          formData,
+          onProgress: (progress) => {
+            onProgress({
+              progress,
+              file,
+            });
+          },
+        });
+      })
+    );
   };
 
-  return { uploadForm, isSuccess, progress };
+  return { uploadForm, uploadFiles };
 };

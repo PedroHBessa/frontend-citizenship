@@ -4,10 +4,12 @@
     "name": "John Doe",
     "gender": "male",
     "parents": [],
-    "spouses": [{
-      "id": "2",
-      "type": "married"
-    }],
+    "spouses": [
+      {
+        "id": "2",
+        "type": "married"
+      }
+    ],
     "siblings": [],
     "status": "COMPLETED_WITH_ERRORS",
     "birthDate": "1880-01-01",
@@ -31,10 +33,12 @@
     "gender": "female",
     "parents": [],
     "status": "COMPLETED_WITH_NO_ERRORS",
-    "spouses": [{
-      "id": "1",
-      "type": "married"
-    }],
+    "spouses": [
+      {
+        "id": "1",
+        "type": "married"
+      }
+    ],
     "siblings": [],
     "birthDate": "1890-01-01",
     "deathDate": "1935-01-01",
@@ -74,14 +78,18 @@
         "type": "blood"
       }
     ],
-    "spouses": [{
-      "id": "6",
-      "type": "married"
-    }],
-    "children": [{
-      "id": "5",
-      "type": "blood"
-    }]
+    "spouses": [
+      {
+        "id": "6",
+        "type": "married"
+      }
+    ],
+    "children": [
+      {
+        "id": "5",
+        "type": "blood"
+      }
+    ]
   },
   {
     "id": "4",
@@ -117,16 +125,19 @@
     "deathDate": "1990-01-01",
     "country": "ES",
     "siblings": [],
-    "parents": [
+    "parents": [],
+    "spouses": [
+      {
+        "id": "3",
+        "type": "married"
+      }
     ],
-    "spouses": [{
-      "id": "3",
-      "type": "married"
-    }],
-    "children": [{
-      "id": "5",
-      "type": "blood"
-    }]
+    "children": [
+      {
+        "id": "5",
+        "type": "blood"
+      }
+    ]
   },
   {
     "id": "5",
@@ -154,10 +165,12 @@
         "type": "married"
       }
     ],
-    "children": [{
-      "id": "8",
-      "type": "blood"
-    }]
+    "children": [
+      {
+        "id": "8",
+        "type": "blood"
+      }
+    ]
   },
   {
     "id": "7",
@@ -167,16 +180,19 @@
     "deathDate": null,
     "country": "AR",
     "siblings": [],
-    "parents": [
+    "parents": [],
+    "spouses": [
+      {
+        "id": "5",
+        "type": "married"
+      }
     ],
-    "spouses": [{
-      "id": "5",
-      "type": "married"
-    }],
-    "children": [{
-      "id": "8",
-      "type": "blood"
-    }]
+    "children": [
+      {
+        "id": "8",
+        "type": "blood"
+      }
+    ]
   },
   {
     "id": "8",
@@ -200,4 +216,3 @@
     "children": []
   }
 ]
-
