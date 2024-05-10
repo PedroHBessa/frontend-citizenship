@@ -47,7 +47,7 @@ type FamilyContext = {
   uploadForm: (data: UploadFormProps) => void;
   deleteMember: (memberId: string) => void;
 };
-
+// eslint-disable-next-line
 const FamilyContext = createContext<FamilyContext | null>({
   family: {},
   members: [],
@@ -57,9 +57,7 @@ const FamilyContext = createContext<FamilyContext | null>({
   tree: [],
   update: () => {},
   setOpenModal: () => {},
-  createNewMember: async (_: NewMemberProps) => {
-    _;
-  }, // Fix: Update the type and add async keyword
+  createNewMember: async (_: NewMemberProps) => {}, // Fix: Update the type and add async keyword
   uploadForm: () => {},
   deleteMember: () => {},
 });

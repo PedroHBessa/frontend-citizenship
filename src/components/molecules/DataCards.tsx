@@ -68,5 +68,5 @@ export function DataCards(props: DataCardsProps) {
       </Grid>
     </>
   );
-}
-``;
+};
+
