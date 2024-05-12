@@ -27,5 +27,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Configure AWS credentials
+        run: |
+          echo "${{ secrets.AWS_PEM_FILE }}" > ~/.aws/credentials.pem
+          chmod 600 ~/.aws/credentials.pem
+
       - name: Run deployment script
         run: bash deploy.sh
