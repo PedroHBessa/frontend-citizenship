@@ -7,7 +7,7 @@ EC2_INSTANCE_HOST="ec2-18-118-136-34.us-east-2.compute.amazonaws.com"  # Public 
 EC2_INSTANCE_DEST_DIR="/usr/share/nginx/html/"  # Destination directory on EC2 instance
 
 # Transfer build artifacts to EC2 instance using SCP
-scp -r "$BUILD_ARTIFACTS_DIR" "$EC2_INSTANCE_USERNAME@$EC2_INSTANCE_HOST:$EC2_INSTANCE_DEST_DIR"
+scp -i ~/.aws/credentials.pem -r "$BUILD_ARTIFACTS_DIR" "$EC2_INSTANCE_USERNAME@$EC2_INSTANCE_HOST:$EC2_INSTANCE_DEST_DIR"
 
 # Additional steps (optional)
 # You can include additional steps here, such as:
