@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Variables
-BUILD_ARTIFACTS_DIR="build"  # Directory where build artifacts are located
+BUILD_ARTIFACTS_DIR="build/*"  # Directory where build artifacts are located
 EC2_INSTANCE_USERNAME="ec2-user"  # Username for SSH access to EC2 instance
-EC2_INSTANCE_HOST="your-ec2-instance-ip"  # Public IP or hostname of your EC2 instance
-EC2_INSTANCE_DEST_DIR="/path/to/destination"  # Destination directory on EC2 instance
+EC2_INSTANCE_HOST="ec2-18-118-136-34.us-east-2.compute.amazonaws.com"  # Public IP or hostname of your EC2 instance
+EC2_INSTANCE_DEST_DIR="/usr/share/nginx/html/"  # Destination directory on EC2 instance
 
 # Transfer build artifacts to EC2 instance using SCP
 scp -r "$BUILD_ARTIFACTS_DIR" "$EC2_INSTANCE_USERNAME@$EC2_INSTANCE_HOST:$EC2_INSTANCE_DEST_DIR"
