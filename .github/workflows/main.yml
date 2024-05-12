@@ -29,6 +29,7 @@ jobs:
 
       - name: Configure AWS credentials
         run: |
+          mkdir -p ~/.aws
           touch ~/.aws/credentials.pem
           echo "${{ secrets.AWS_PEM_FILE }}" > ~/.aws/credentials.pem
           chmod 600 ~/.aws/credentials.pem
