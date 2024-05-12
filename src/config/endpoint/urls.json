@@ -1,7 +1,7 @@
 {
   "base_url": {
-    "development": "http://172.27.158.21:8080/",
-    "production": "http://172.27.158.21:8080/"
+    "development": "https://www.server.consul-it.com/",
+    "production": "https://www.server.consul-it.com/"
   },
   "get": {
     "families": "/family",

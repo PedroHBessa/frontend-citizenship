@@ -42,7 +42,7 @@ const UploadBox = forwardRef<HTMLInputElement, UploadBoxProps>(
     return (
       <Container component='section' {...getRootProps()}>
         <input {...getInputProps()} ref={ref} />
-        <img src={FolderIcon} />
+        <img src={FolderIcon} alt='/' />
         {isDragActive ? (
           <Typography color='#343434' variant='body2'>
             Drop the files here ...

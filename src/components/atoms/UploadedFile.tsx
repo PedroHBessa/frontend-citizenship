@@ -30,7 +30,7 @@ const UploadedFile = forwardRef<BoxProps, UploadedFileProps>(
       <Container component='section' ref={ref}>
         <FileData container spacing={5}>
           <Grid display='flex' item>
-            <img src={UploadDefaultImage} />
+            <img src={UploadDefaultImage} alt='/' />
             <Box ml={2}>
               <Typography variant='h6'>{`${shortenFilename(fileName ?? '')}`}</Typography>
               <Typography

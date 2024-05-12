@@ -32,7 +32,7 @@ export class Api {
    */
   public constructor(config?: AxiosRequestConfig) {
     this.config = new Configuration();
-    this.api = axios.create({ ...config, baseURL: this.config.baseUrl });
+    this.api = axios.create({ ...config, baseURL: this.config.baseUrl, headers: { 'Access-Control-Allow-Origin': '*'} });
     this.api.interceptors.response.use(
       (response: AxiosResponse) => {
         return response;

@@ -59,8 +59,8 @@ export function AppBar() {
           <IconButtonNavigation
             description='Get metrics and insights about the families'
             isOpen={isOpen}
-            onClick={() => navigate('/')}
-            selected={pathname === '/'}
+            onClick={() => navigate('/dashboard')}
+            selected={pathname === '/dashboard'}
             title='Dashboard'
           >
             <DashboardIcon />

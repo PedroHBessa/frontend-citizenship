@@ -11,10 +11,15 @@ import { Families } from './components/pages/Families';
 import { Reports } from './components/pages/Reports';
 import { FamiliesContextProvider } from './components/contexts/FamiliesContext';
 import { FamilyContextProvider } from './components/contexts/FamilyContext';
+import { Navigate } from 'react-router-dom';
 
 const routes = [
   {
     path: '/',
+    element: <Navigate to="/families" replace />,
+  },
+  {
+    path: '/dashboard',
     element: (
       <AuthGuard>
         <BaseAppLayout>
