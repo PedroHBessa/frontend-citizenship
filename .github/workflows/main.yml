@@ -18,3 +18,21 @@ jobs:
 
       - name: Build
         run: npm run build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        run: |
+          mkdir -p ~/.aws
+          touch ~/.aws/credentials.pem
+          echo "${{ secrets.AWS_PEM_FILE }}" > ~/.aws/credentials.pem
+          chmod 600 ~/.aws/credentials.pem
+
+      - name: Run deployment script
+        run: bash deploy.sh
