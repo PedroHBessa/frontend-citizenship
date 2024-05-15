@@ -1,4 +1,4 @@
-import { Alert, Box, FormLabel, Grid } from '@mui/material';
+import { Alert, Box, FormLabel, Grid, Typography } from '@mui/material';
 import { useUploadTab } from 'components/hooks/useUploadTab';
 import { Gender } from 'components/molecules/FamilyTree/Form/Gender';
 import { MemberType } from 'components/molecules/FamilyTree/Form/MemberType';
@@ -50,6 +50,11 @@ export function UploadTab() {
                   </Grid>
                 ))}
               </Grid>
+              <Typography variant='caption'>
+                * You have to upload an image of the birth certificate. After that, our servers will convert these images to text and fill the form automatically for you.
+                 You can download an example file <a href='/example.jpg' download>here</a>.
+        
+              </Typography>
             </Grid>
           </Grid>
         </form>

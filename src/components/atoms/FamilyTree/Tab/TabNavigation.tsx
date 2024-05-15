@@ -18,7 +18,7 @@ const Component = styled.div`
 `;
 
 export function TabNavigation() {
-  const { setCurrentId, currentId } = useTab();
+  const { currentId } = useTab();
 
   const tabs = [
     {
@@ -46,7 +46,6 @@ export function TabNavigation() {
           <Grid item key={`icon-item-${tab.id}`} mb={1} xs={12}>
             <IconButtonTab
               active={tab.id === currentId}
-              onClick={() => setCurrentId(tab.id)}
               selected={tab.id === currentId}
             >
               {tab.icon}

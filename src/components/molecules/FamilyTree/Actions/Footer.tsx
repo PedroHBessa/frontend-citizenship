@@ -1,5 +1,6 @@
 import BackHandOutlinedIcon from '@mui/icons-material/BackHandOutlined';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import styled from 'styled-components';
 import { darkColors } from 'theme/variants';
 import { CustomButton } from '../../../atoms/CustomButton';
@@ -27,6 +28,11 @@ export function Footer({ onClose }: FooterProps) {
     onSubmit && onSubmit.current(currentId);
   };
 
+  const handleBack = () => {
+    let newId = parseInt(currentId) - 1;
+    setCurrentId(newId.toString());
+  };
+
   const handleFinish = () => {
     setCurrentId('1');
     onClose();
@@ -34,7 +40,19 @@ export function Footer({ onClose }: FooterProps) {
 
   return (
     <ModalActionsFooter>
-      {currentId === '4' ? (
+    
+        {currentId > '1' && (
+          <CustomButton
+          color='primary'
+          style={{ marginRight: '1rem' }}
+          startIcon={<KeyboardDoubleArrowLeftIcon />}
+          onClick={() => handleBack()}
+          variant='contained'
+        >
+          Back
+        </CustomButton>
+      )}
+        {currentId === '4' ? (
         <FinishButton
           color='primary'
           endIcon={<KeyboardDoubleArrowRightIcon />}
@@ -65,6 +83,7 @@ export function Footer({ onClose }: FooterProps) {
           Manually
         </CustomButton>
       )}
+
     </ModalActionsFooter>
   );
 }

@@ -175,6 +175,8 @@ export function useDocuments() {
     };
   }, [documents, fetchData, invalidate, memberId]);
 
+  console.log(documents, 'documents');
+
   return {
     documents,
     loading,
